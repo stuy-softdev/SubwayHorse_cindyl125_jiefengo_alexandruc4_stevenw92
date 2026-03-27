@@ -1,0 +1,7 @@
+INITIAL DD REVIEW -- 2026-03-27 00:22
+  - Added explanation of map.html's scope
+  - Removed "every page is dynamic"
+  - Added explanation of SQLite3 vs CSV
+  - Added clarification between the DB Schema and CSV Data 
+  - Added justification of why we are using so much payroll data
+  - Added arrow for site map, added PM label for PM
