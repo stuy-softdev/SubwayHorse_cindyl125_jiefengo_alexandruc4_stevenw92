@@ -5,3 +5,6 @@ INITIAL DD REVIEW -- 2026-03-27 00:22
   - Added clarification between the DB Schema and CSV Data 
   - Added justification of why we are using so much payroll data
   - Added arrow for site map, added PM label for PM
+
+alexandruC -- 2026-03-30 10:37
+  - Added project description to readme
