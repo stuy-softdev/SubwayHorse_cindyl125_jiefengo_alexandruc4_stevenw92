@@ -127,5 +127,9 @@ ehthumbs.db
 **/*[\\/\:;*?!'"<>|$º•¶§∞¢£]*
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#SQLite3 database
+# SQLite3 database
 *.db
+
+# Server stuff
+wsgi.py
+*env/
