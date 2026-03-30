@@ -11,3 +11,7 @@ alexandruC -- 2026-03-30 10:37
 
 cindyL -- 2026-03-30 10:51
   - added login register map html pages
+
+jiefengO -- 2026-03-30 11:00
+  - Added requirements.txt, .gitignore
+  - Added working flask app remotely
