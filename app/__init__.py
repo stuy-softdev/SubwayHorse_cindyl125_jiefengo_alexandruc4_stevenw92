@@ -67,7 +67,7 @@ def register():
 
     if existing_user:
       db.close()
-      text = "username already taken, try another one!"
+      flash("username already taken, try another one!")
       return render_template('register.html')
 
     c.execute("INSERT into user_data VALUES (?, ?)", (username, password))
