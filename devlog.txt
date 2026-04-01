@@ -18,3 +18,4 @@ jiefengO -- 2026-03-30 11:00
 
 alexandruC -- 2026-03-31 20:55
   - Added install guide
+  - Added live site location
