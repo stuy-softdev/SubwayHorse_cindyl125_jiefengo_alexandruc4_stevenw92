@@ -19,3 +19,6 @@ jiefengO -- 2026-03-30 11:00
 alexandruC -- 2026-03-31 20:55
   - Added install guide
   - Added live site location
+
+alexandruC -- 2026-04-01 10:36
+  - Added flash to login 

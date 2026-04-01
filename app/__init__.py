@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, flash
 import sqlite3
 from datetime import datetime
 
@@ -16,7 +16,7 @@ c.execute("CREATE TABLE IF NOT EXISTS user_data(username TEXT, password TEXT);")
 @app.route("/", methods=['GET','POST'])
 def home():
     return "hi";
-    '''
+'''
 
 @app.route("/map", methods=["GET","POST"])
 def map():
@@ -32,25 +32,26 @@ def index():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-  if request.method == 'POST':
-    username = request.form['username']
-    password = request.form['password']
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
-    c.execute("SELECT * FROM user_data WHERE username = ?", (username,))
-    user = c.fetchone()
-    db.close()
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        c.execute("SELECT * FROM user_data WHERE username = ?", (username,))
+        user_data = c.fetchone()
+        db.close()
 
-    if user == None  or user[0] != username or user[1] != password:
-        print("username or password do not match records")
-        text = "login failed, create new acc?"
-        return render_template('login.html')
-    elif user[0] == username and user[1] == password:
-      session['username'] = username
-      return redirect(url_for('map'))
-    else:
-      return redirect(url_for('index'))
-  return redirect(url_for('index'))
+        if user_data:
+            passworddb = user_data[0]
+            if password_form == passworddb:
+                session["username"] = username
+                return redirect(url_for('login'))
+            else:
+                flash("Incorrect password. Try again.")
+        else:
+            flash("Username incorrect or not found. Try again.")
+        return redirect(url_for('login'))
+    return render_template('login.html')
 
 @app.route("/register", methods=["GET", "POST"]) # create new account and add to database
 def register():
