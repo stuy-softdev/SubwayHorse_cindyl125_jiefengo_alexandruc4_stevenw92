@@ -15,3 +15,6 @@ cindyL -- 2026-03-30 10:51
 jiefengO -- 2026-03-30 11:00
   - Added requirements.txt, .gitignore
   - Added working flask app remotely
+
+alexandruC -- 2026-03-31 20:55
+  - Added install guide
