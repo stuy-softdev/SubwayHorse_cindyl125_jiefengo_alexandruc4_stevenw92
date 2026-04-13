@@ -57,5 +57,7 @@ def create_database():
     db.commit()
     db.close()
 
+    print(f"finished reading")
+
 if __name__ == "__main__":
     create_database()
