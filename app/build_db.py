@@ -11,7 +11,7 @@ def create_database():
     cursor = db.cursor()
 
     # names taken from api field names...take it up with them
-    table_queary = f''' 
+    table_query = f'''
     CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
         fiscal_year REAL,
         payroll_number REAL,
@@ -32,11 +32,12 @@ def create_database():
         total_other_pay REAL
     )
     '''
-    cursor.execute(table_queary)
+    cursor.execute(table_query)
 
     if not os.path.exists(CSV_FILE_PATH):
         print(f"could not find {CSV_FILE_PATH}")
         return
+
     print(f"currently reading from {CSV_FILE_PATH}")
 
     with open (CSV_FILE_PATH, mode = "r", encoding="utf-8") as csv_file:
@@ -44,17 +45,19 @@ def create_database():
         next(csv_file, None) # using next since loading a large dataset into memory wouldn't be a good idea
         insert_query = f'''
         INSERT INTO {TABLE_NAME} (
-            fiscal_year, payroll_number, agency_name, last_name, first_name, mid_init, 
+            fiscal_year, payroll_number, agency_name, last_name, first_name, mid_init,
             agency_start_date, work_location_borough, title_description, leave_status_as_of_june_30,
             base_salary, pay_basis, regular_hours, regular_gross_paid, ot_hours, total_ot_paid, total_other_pay
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         '''
-    
-        for row in csv_file: 
+        for row in csv_file:
             cursor.execute(insert_query, row)
         # TODO no exception handling should do at some point
+
     db.commit()
     db.close()
-    
+
+    print(f"finished reading")
+
 if __name__ == "__main__":
     create_database()
