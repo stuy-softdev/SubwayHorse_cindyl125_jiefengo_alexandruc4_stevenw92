@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>\
+<head>
     <title>Register</title>
+
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
 </head>
-<body>
-    <h1>Create Account</h1>
+<div class="h-screen w-screen flex flex-col justify-center items-center rounded shadow-lg">
+  <body class="text-center">
+      <h1 class="text-4xl font-bold">Create Account</h1>
+      <br>
+      <div class="flex flex-col justify-center items-center text-xl p-4">
+        <form action="{{ url_for('register') }}" method="POST">
+            <label>Username</label>
+            <br>
+            <input class="border rounded-full" type="text" name="username" required>
 
-    <form action="{{ url_for('register') }}" method="POST">
-        <label>Username</label>
-        <input type="text" name="username" required>
-        <br><br>
+            <br>
 
-        <label>Password</label>
-        <input type="password" name="password" required>
-        <br><br>
+            <label>Password</label>
+            <br>
+            <input class="border rounded-full" type="password" name="password" required>
 
-        <button type="submit">Register</button>
-    </form>
+            <br>
 
-    <br>
-    <p>Already have an account? <a href="{{ url_for('index') }}">Login here</a></p>
-</body>
+            <button class="bg-blue p-5" type="submit">Register</button>
+          </form>
+      </div>
+
+      <br>
+      <p>Already have an account? <a href="{{ url_for('index') }}">Login here</a></p>
+  </body>
+</div>
 </html>

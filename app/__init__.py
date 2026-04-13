@@ -43,15 +43,20 @@ def login():
 
         if user_data:
             passworddb = user_data[0]
-            if password_form == passworddb:
+            if password == passworddb:
                 session["username"] = username
-                return redirect(url_for('login'))
+                return redirect(url_for('map'))
             else:
                 flash("Incorrect password. Try again.")
         else:
             flash("Username incorrect or not found. Try again.")
         return redirect(url_for('login'))
     return render_template('login.html')
+
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 @app.route("/register", methods=["GET", "POST"]) # create new account and add to database
 def register():

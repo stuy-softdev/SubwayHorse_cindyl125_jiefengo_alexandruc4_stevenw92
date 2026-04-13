@@ -21,8 +21,11 @@ alexandruC -- 2026-03-31 20:55
   - Added live site location
 
 alexandruC -- 2026-04-01 10:36
-  - Added flash to login 
+  - Added flash to login
 
 alexandruC -- 2026-04-08 15:24
   - Created and wrote build_db.py that populates db from csv data.
-  
+
+cindyL -- 2026-04-13 10:57
+  - fixed register html
+  - fixed login and added logout
