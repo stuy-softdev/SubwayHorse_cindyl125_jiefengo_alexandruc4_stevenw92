@@ -28,6 +28,7 @@ alexandruC -- 2026-04-08 15:24
 
 alexandruC -- 2026-04-13 10:47
   - Added a finish message to build_db and cleaned up code a bit.
+  
 cindyL -- 2026-04-13 10:57
   - fixed register html
   - fixed login and added logout
