@@ -8,6 +8,11 @@ const marginRight = 20;
 const marginBottom = 30;
 const marginLeft = 40;
 
+// Testing csv reading
+const data = await d3.csv("static/data/test-data.csv");
+console.log('hi');
+console.log(data);
+
 // Declare the x (horizontal position) scale.
 const x = d3.scaleUtc()
     .domain([new Date("2023-01-01"), new Date("2024-01-01")])
