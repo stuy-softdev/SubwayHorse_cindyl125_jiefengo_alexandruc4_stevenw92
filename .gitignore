@@ -133,4 +133,4 @@ ehthumbs.db
 # Server stuff
 wsgi.py
 *env/
-.csv
+*.csv
