@@ -13,22 +13,17 @@ c.execute("CREATE TABLE IF NOT EXISTS user_data(username TEXT, password TEXT);")
 
 #Flask routes home page
 '''
-@app.route("/", methods=['GET','POST'])
-def home():
-    return "hi";
-'''
-
 @app.route("/map", methods=["GET","POST"])
 def map():
-    return render_template("map.html")
+  return render_template("map.html")
+'''
 
 #login and register functions
 @app.route("/", methods=['GET', 'POST']) #map if session exists, otherwise go to login
 def index():
   if 'username' in session:
-    return redirect(url_for('map'))
-  else:
-    return render_template('login.html')
+    return render_template("map.html", logged=True)
+  return render_template("map.html", logged=False)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -45,7 +40,7 @@ def login():
             passworddb = user_data[0]
             if password == passworddb:
                 session["username"] = username
-                return redirect(url_for('map'))
+                return redirect(url_for('index'))
             else:
                 flash("Incorrect password. Try again.")
         else:
@@ -79,7 +74,7 @@ def register():
     db.commit()
     db.close()
     session['username'] = username
-    return redirect(url_for('map'))
+    return redirect(url_for('index'))
   return render_template('register.html')
 
 if __name__ == "__main__": #false if this file imported as module

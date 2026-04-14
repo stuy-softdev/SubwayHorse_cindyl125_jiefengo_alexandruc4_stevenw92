@@ -32,3 +32,8 @@ alexandruC -- 2026-04-13 10:47
 cindyL -- 2026-04-13 10:57
   - fixed register html
   - fixed login and added logout
+
+cindyL -- 2026-04-13 23:27
+  - made map the landing page (login no longer required to enter)
+  - worked on tailwind styling
+  - fixed navbar 

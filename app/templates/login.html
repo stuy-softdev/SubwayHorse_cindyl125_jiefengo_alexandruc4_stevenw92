@@ -5,28 +5,25 @@
 
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
 </head>
-<div class="h-screen w-screen flex flex-col justify-center items-center rounded shadow-lg">
-  <body class="text-center">
+
+  <body class="text-center h-screen w-screen flex flex-col justify-center items-center bg-stone-200">
+    <div class="w-full max-w-md rounded-[2rem] bg-white shadow-2xl shadow-blue-900 p-12">
       <h1 class="text-4xl font-bold">Login</h1>
       <br>
       <div class="flex flex-col justify-center items-center text-xl p-4">
         <form action="{{ url_for('login') }}" method="POST">
             <label>Username</label>
             <br>
-            <input class="border rounded-full" type="text" name="username" required>
-
+            <input class="px-3 border rounded-full text-lg" type="text" name="username" required>
             <br>
-
             <label>Password</label>
             <br>
-            <input class="border rounded-full" type="password" name="password" required>
-
+            <input class="px-3 border rounded-full text-lg" type="password" name="password" required>
             <br>
-
-            <button class="text-mist-700 p-5 hover:text-mist-500" type="submit">Login</button>
+            <button class="text-gray-800 p-5 hover:text-gray-400" type="submit">Login</button>
         </form>
       </div>
-      <p class="text-mist-700">or <a href="{{ url_for('register') }}">create an account</a></p>
-    </body>
-</div>
+      <p class="font-serif">or <a class="text-blue-900 hover:text-slate-400" href="{{ url_for('register') }}">create an account</a></p>
+    </div>
+  </body>
 </html>
