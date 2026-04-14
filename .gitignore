@@ -129,6 +129,7 @@ ehthumbs.db
 
 # SQLite3 database
 *.db
+*.db-journal
 
 # Server stuff
 wsgi.py
