@@ -50,9 +50,14 @@ def create_database():
             base_salary, pay_basis, regular_hours, regular_gross_paid, ot_hours, total_ot_paid, total_other_pay
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         '''
+        row_count = 0
         for row in csv_file:
-            cursor.execute(insert_query, row)
-        # TODO no exception handling should do at some point
+            try:
+                cursor.execute(insert_query, row)
+            except:
+                print(f"failed on row {row_count}")
+                sys.exit(1)
+            row_count += 1
 
     db.commit()
     db.close()
