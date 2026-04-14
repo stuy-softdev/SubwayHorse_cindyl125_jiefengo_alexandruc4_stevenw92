@@ -36,4 +36,7 @@ cindyL -- 2026-04-13 10:57
 cindyL -- 2026-04-13 23:27
   - made map the landing page (login no longer required to enter)
   - worked on tailwind styling
-  - fixed navbar 
+  - fixed navbar
+
+alexandruC -- 2026-04-13 10:51
+  - Finished build_db full error handling
