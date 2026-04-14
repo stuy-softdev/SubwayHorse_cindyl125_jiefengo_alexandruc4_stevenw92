@@ -9,9 +9,16 @@ const marginBottom = 30;
 const marginLeft = 40;
 
 // Testing csv reading
-const data = await d3.csv("static/data/test-data.csv");
+const payroll_data = await d3.csv("static/data/test-data.csv");
 console.log('hi');
-console.log(data);
+console.log(payroll_data);
+
+// Bin the data.
+const bins = d3.bin()
+    .thresholds(40)
+    .value((d) => d.rate)
+  (payroll_data);
+
 
 // Declare the x (horizontal position) scale.
 const x = d3.scaleUtc()

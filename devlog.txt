@@ -36,4 +36,7 @@ cindyL -- 2026-04-13 10:57
 cindyL -- 2026-04-13 23:27
   - made map the landing page (login no longer required to enter)
   - worked on tailwind styling
-  - fixed navbar 
+  - fixed navbar
+
+jiefengO -- 2026-04-14 11:00
+  - d3.js can maybe read csv files?
