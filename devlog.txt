@@ -38,11 +38,14 @@ cindyL -- 2026-04-13 23:27
   - worked on tailwind styling
   - fixed navbar
 
+jiefengO -- 2026-04-14 11:00
+  - d3.js can maybe read csv files?
+
 alexandruC -- 2026-04-13 10:51
   - Finished build_db full error handling
 
 cindyL -- 2026-04-14 10:59
   - added sidebars
 
-cindyL -- 2026-04-15 10:59
-  - started ads
+jiefengO -- 2026-04-15 11:00
+  - d3 chart working locally, not on server

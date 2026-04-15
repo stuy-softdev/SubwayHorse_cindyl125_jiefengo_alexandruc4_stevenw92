@@ -33,7 +33,6 @@ const y = d3.scaleLinear()
     .range([height - marginBottom, marginTop]);
 
 console.log(d3.max(bins, (d) => d.length))
-
 // Create the SVG container.
 const svg = d3.create("svg")
     .attr("width", width)
