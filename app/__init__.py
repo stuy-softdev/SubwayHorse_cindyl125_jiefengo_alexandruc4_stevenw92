@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, url_for, flash
-import sqlite3
+import sqlite3, random
 from datetime import datetime
 
 app = Flask(__name__)
@@ -11,6 +11,15 @@ db = sqlite3.connect(DB_FILE, check_same_thread=False)
 c = db.cursor()
 c.execute("CREATE TABLE IF NOT EXISTS user_data(username TEXT, password TEXT);")
 
+ad_links = [
+    "https://nycjobfairs.com/wp-content/uploads/2025/04/copyofbronxjobfairposter4153983869311417394.jpg?w=768",
+    "https://images.squarespace-cdn.com/content/v1/55a00197e4b0b8eb00f89d99/9e3f812a-f035-4827-b465-e5bbae9064d4/OFNS+Hiring+Flyer+-+No+Vaccination+8_5x11+(1)1024_1.jpg",
+    "https://nychajournal.nyc/wp-content/uploads/2025/01/Post-2-CarouselDOC_Exam5301_Post_1080x1080_1b-1024x1024.png",
+    "https://nycjobfairs.com/wp-content/uploads/2024/12/flatbush-job-fair-poster-2.jpg?w=868",
+    "https://i0.wp.com/nycjobfairs.com/wp-content/uploads/2024/12/nyc20job20fairs-remove-background.com_.png?resize=500%2C500&ssl=1",
+    "https://images.squarespace-cdn.com/content/v1/6273fd18e26b4a2b39ad9bd9/ae644a84-db0e-4d60-af78-7e3036d1c273/Queens+Job+Fair+2023-+Final_02.png",
+    "https://africainharlem.nyc/wp-content/uploads/2023/03/Applications-for-2023-Summer-Youth-Employment-Program-SYEP-open-for-youth-and-employers.jpeg"
+]
 #Flask routes home page
 '''
 @app.route("/map", methods=["GET","POST"])
@@ -21,6 +30,7 @@ def map():
 #login and register functions
 @app.route("/", methods=['GET', 'POST']) #map if session exists, otherwise go to login
 def index():
+    ads = random.sample(ad_links, 5)
   if 'username' in session:
     return render_template("map.html", logged=True)
   return render_template("map.html", logged=False)
