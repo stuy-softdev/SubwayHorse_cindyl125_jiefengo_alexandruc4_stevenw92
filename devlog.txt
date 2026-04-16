@@ -56,5 +56,6 @@ cindyL -- 2026-04-15 10:59
 jiefengO -- 2026-04-16 05:45
   - d3 chart working locally, not on server
 
-cindyL -- 2026-04-16 10:39
+cindyL -- 2026-04-16 10:51
   - ads done
+  - minor changes to ratios

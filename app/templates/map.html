@@ -6,7 +6,7 @@
 </head>
 <body>
   <nav class="fixed w-full top-0 z-50 bg-stone-200 shadow-md">
-    <div class="flex flex-row justify-evenly py-3 text-xl font-serif font-bold">
+    <div class="flex flex-row justify-evenly py-4 text-2xl font-serif font-bold">
       {% if logged %}
         <a class="hover:text-slate-400" href="{{ url_for('logout') }}">LOG OUT</a>
       {% else %}
@@ -15,7 +15,7 @@
       {% endif %}
     </div>
   </nav>
-<div class="flex flex-row w-full h-full mt-14">
+<div class="flex flex-row w-full h-full mt-16">
   <br>
   <div class="flex flex-col h-full w-1/5 items-center mt-3">
     <div class="my-3 aspect-1/2 h-4/5 w-4/5 bg-red-300 text-2xl text-center font-mono">
