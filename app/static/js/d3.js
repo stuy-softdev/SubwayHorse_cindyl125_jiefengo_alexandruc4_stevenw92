@@ -10,7 +10,13 @@ async function load_chart(){
     const marginLeft = 40;
 
     // Testing csv reading
-    const payrollData = await d3.csv("/static/data/unemployment.csv");
+    var payrollData;
+    await fetch("/static/data/unemployment.csv")
+        .then(response => response.text())
+        .then(text => {
+            payrollData = d3.csvParse(text);
+            console.log(payrollData);
+        });
     console.log('hi');
     console.log(payrollData);
 
