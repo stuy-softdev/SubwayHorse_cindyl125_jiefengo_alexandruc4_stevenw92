@@ -30,7 +30,7 @@ def map():
 #login and register functions
 @app.route("/", methods=['GET', 'POST']) #map if session exists, otherwise go to login
 def index():
-    ads = random.sample(ad_links, 5)
+  ads = random.sample(ad_links, 5)
   if 'username' in session:
     return render_template("map.html", logged=True)
   return render_template("map.html", logged=False)
