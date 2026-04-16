@@ -41,7 +41,7 @@ cindyL -- 2026-04-13 23:27
 jiefengO -- 2026-04-14 11:00
   - d3.js can maybe read csv files?
 
-alexandruC -- 2026-04-14 10:51
+alexandruC -- 2026-04-13 10:51
   - Finished build_db full error handling
 
 cindyL -- 2026-04-14 10:59
@@ -52,6 +52,13 @@ jiefengO -- 2026-04-15 11:00
 
 cindyL -- 2026-04-15 10:59
   - started ads
+
+HOME STRETCH CHECKLIST:
+------------------------------------
+* make data work :: alex
+* visualize the data :: jeff. steven
+* clean up html :: cindy
+====================================
 
 jiefengO -- 2026-04-16 05:45
   - d3 chart working locally, not on server
