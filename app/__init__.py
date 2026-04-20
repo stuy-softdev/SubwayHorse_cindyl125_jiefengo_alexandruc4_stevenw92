@@ -47,8 +47,10 @@ def request_data():
     return render_template("map.html", logged=False, ads=ads)
 
 def read_db(data_1):
-    c.execute("SELECT * FROM ?", (data_1,))
-    read_data_1 = c.fetchall()
+    db = sqlite3.connect("nyc_payroll.db", check_same_thread=False)
+    d = db.cursor()
+    d.execute("SELECT ? FROM payroll_data", (data_1,))
+    read_data_1 = d.fetchall()
     print(read_data_1)
 
 

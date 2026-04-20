@@ -3,7 +3,7 @@ import csv
 import os
 import sys
 
-CSV_FILE_PATH = 'payroll_data.csv'  # Not uploading csv name it whatever you want
+CSV_FILE_PATH = 'app/static/data/full_payroll_data.csv'  # Not uploading csv name it whatever you want
 DB_FILE_PATH = 'nyc_payroll.db'
 TABLE_NAME = 'payroll_data'
 
