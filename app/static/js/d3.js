@@ -92,6 +92,91 @@ async function load_chart(){
     */
     // Append the SVG element.
     div.append(() => svg.node());
+
+
+   // #######
+   // GRAPH 2
+   // #######
+
+    const div2 = container.append("div").attr("class", "my-6 bg-white p-4 rounded shadow text-left");
+    div2.append("h2").text("Bar Graph").attr("class", "text-xl font-bold mb-2 text-black");
+
+    const barData = payrollData.slice(0, 10); //take first 10 to test
+    
+    const x2 = d3.scaleBand()
+        .domain(barData.map((d, i) => i))
+        .range([marginLeft, width - marginRight])
+        .padding(0.1);
+    
+    const y2 = d3.scaleLinear()
+        .domain([0, d3.max(barData, d => +d.rate || 0)])
+        .nice()
+        .range([height - marginBottom, marginTop]);
+
+    const svg2 = d3.create("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", [0, 0, width, height]);
+
+    svg2.append("g")
+        .attr("fill", "mediumseagreen")
+        .selectAll()
+        .data(barData)
+        .join("rect")
+        .attr("x", (d, i) => x2(i))
+        .attr("y", d => y2(+d.rate || 0))
+        .attr("height", d => y2(0) - y2(+d.rate || 0))
+        .attr("width", x2.bandwidth());
+
+    svg2.append("g")
+        .attr("transform", `translate(0,${height - marginBottom})`)
+        .call(d3.axisBottom(x2).tickFormat(i => `Item ${i+1}`));
+    svg2.append("g")
+        .attr("transform", `translate(${marginLeft},0)`)
+        .call(d3.axisLeft(y2));
+
+    div2.append(() => svg2.node());
+
+    // #######
+    // GRAPH 3
+    // #######
+
+    const div3 = container.append("div").attr("class", "my-6 bg-white p-4 rounded shadow text-left");
+    div3.append("h2").text("Scatter)").attr("class", "text-xl font-bold mb-2 text-black");
+
+    const scatterData = payrollData.slice(0, 50); // less clutter
+    const x3 = d3.scaleLinear()
+        .domain([0, scatterData.length])
+        .range([marginLeft, width - marginRight]);
+    
+    const y3 = d3.scaleLinear()
+        .domain([0, d3.max(scatterData, d => +d.rate || 0)])
+        .nice()
+        .range([height - marginBottom, marginTop]);
+
+    const svg3 = d3.create("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", [0, 0, width, height]);
+
+    svg3.append("g")
+        .selectAll("circle")
+        .data(scatterData)
+        .join("circle")
+        .attr("cx", (d, i) => x3(i))
+        .attr("cy", d => y3(+d.rate || 0))
+        .attr("r", 5)
+        .attr("fill", "tomato")
+        .attr("opacity", 0.7);
+
+    svg3.append("g")
+        .attr("transform", `translate(0,${height - marginBottom})`)
+        .call(d3.axisBottom(x3));
+    svg3.append("g")
+        .attr("transform", `translate(${marginLeft},0)`)
+        .call(d3.axisLeft(y3));
+
+    div3.append(() => svg3.node());
 }
 
 load_chart()

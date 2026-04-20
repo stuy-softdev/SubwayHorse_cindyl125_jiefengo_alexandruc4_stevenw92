@@ -69,3 +69,6 @@ cindyL -- 2026-04-16 10:51
 
 alexandruC -- 2026-04-20 03:02
   - simplified histogram for testing
+
+alexandruC -- 2026-04-20 03:22
+  - made bar and scatterplots
