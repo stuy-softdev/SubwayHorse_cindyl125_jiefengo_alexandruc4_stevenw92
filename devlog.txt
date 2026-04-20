@@ -72,3 +72,6 @@ alexandruC -- 2026-04-20 03:02
 
 alexandruC -- 2026-04-20 03:22
   - made bar and scatterplots
+
+jiefengO -- 2026-04-20 05:05
+  - trying to get data from sqlite to d3.js but its not working at all

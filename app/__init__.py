@@ -41,7 +41,7 @@ def request_data():
     if request.method == 'POST':
         data_1 = request.form['req-data-1']
         read_db(data_1)
-        return render_template("map.html",logged=True, ads=ads)
+        return redirect(url_for('index'))
     if 'username' in session:
         return render_template("map.html", logged=True, ads=ads)
     return render_template("map.html", logged=False, ads=ads)
@@ -49,7 +49,7 @@ def request_data():
 def read_db(data_1):
     db = sqlite3.connect("nyc_payroll.db", check_same_thread=False)
     d = db.cursor()
-    d.execute("SELECT ? FROM payroll_data", (data_1,))
+    d.execute(f"SELECT {data_1} FROM payroll_data LIMIT 500")
     read_data_1 = d.fetchall()
     print(read_data_1)
 
