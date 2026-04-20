@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+</head>
+<body>
+  <nav class="fixed w-full top-0 z-50 bg-stone-200 shadow-md">
+    <div class="flex flex-row justify-evenly py-4 text-2xl font-serif font-bold">
+      {% if logged %}
+        <a class="hover:text-slate-400" href="{{ url_for('logout') }}">LOG OUT</a>
+      {% else %}
+        <a class="hover:text-slate-400" href="{{ url_for('login') }}">LOG IN</a>
+        <a class="hover:text-slate-400" href="{{ url_for('register') }}">REGISTER</a>
+      {% endif %}
+      <a class="hover:text-slate-400" href="{{ url_for('index') }}">MAP</a>
+    </div>
+  </nav>
+  <div class="flex flex-row w-full h-full mt-16">
+    <br>
+    <div class="flex flex-col h-full w-1/5 items-center mt-3">
+      <div class="my-3 aspect-1/2 h-4/5 w-4/5 bg-red-300 text-2xl text-center font-mono">
+          {% if not logged %}
+            {% for ad in ads %}
+              <img src={{ad}}>
+            {% endfor %}
+          {% endif %}
+      </div>
+    </div>
+    <div class="h-full flex flex-col items-center">
+      <div class="grid grid-flow-col grid-cols-2 grid-rows-17">
+        <div class="h-full text-right">
+          {% for query in queries %}
+            {{query}}
+            <br>
+          {% endfor %}
+        </div>
+        <div class="h-full w-2/3">
+          {% for query in queries %}
+            <input class="px-3 border rounded-full text-lg" type="text" name={{query}}>
+            <br>
+          {% endfor %}
+        </div>
+      </div>
+      <button class="text-gray-800 p-5 hover:text-gray-400" type="submit">SEARCH</button>
+    </div>
+    <div class="flex flex-col h-full w-1/5 items-center mt-3">
+      <div class="my-3 h-4/5 w-4/5 bg-yellow-200 text-center items-center text-xl font-mono">
+        {% if not logged %}
+          LOG IN TO REMOVE ADS!
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</body>

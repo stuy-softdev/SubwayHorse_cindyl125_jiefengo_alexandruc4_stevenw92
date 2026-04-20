@@ -35,25 +35,6 @@ def index():
         return render_template("map.html", logged=True, ads=ads)
     return render_template("map.html", logged=False, ads=ads)
 
-@app.route("/request_data", methods=['POST'])
-def request_data():
-    ads = random.sample(ad_links, 3)
-    if request.method == 'POST':
-        data_1 = request.form['req-data-1']
-        read_db(data_1)
-        return redirect(url_for('index'))
-    if 'username' in session:
-        return render_template("map.html", logged=True, ads=ads)
-    return render_template("map.html", logged=False, ads=ads)
-
-def read_db(data_1):
-    db = sqlite3.connect("nyc_payroll.db", check_same_thread=False)
-    d = db.cursor()
-    d.execute(f"SELECT {data_1} FROM payroll_data LIMIT 500")
-    read_data_1 = d.fetchall()
-    print(read_data_1)
-
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
@@ -105,6 +86,33 @@ def register():
     session['username'] = username
     return redirect(url_for('index'))
   return render_template('register.html')
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    queries=[
+        "fiscal_year",
+        "payroll_number",
+        "agency_name",
+        "last_name",
+        "first_name",
+        "mid_init",
+        "agency_start_date",
+        "work_location_borough",
+        "title_description",
+        "leave_status_as_of_june_30",
+        "base_salary",
+        "pay_basis",
+        "regular_hours",
+        "regular_gross_paid",
+        "ot_hours",
+        "total_ot_paid",
+        "total_other_pay",
+    ]
+    if request.method == "POST":
+        db = sqlite3.connect('nyc_payroll.db')
+        c = db.cursor()
+        
+    return render_template('search.html', queries=queries)
 
 if __name__ == "__main__": #false if this file imported as module
     app.debug = True  #enable PSOD, auto-server-restart on code chg
