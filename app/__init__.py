@@ -35,6 +35,23 @@ def index():
         return render_template("map.html", logged=True, ads=ads)
     return render_template("map.html", logged=False, ads=ads)
 
+@app.route("/request_data", methods=['POST'])
+def request_data():
+    ads = random.sample(ad_links, 3)
+    if request.method == 'POST':
+        data_1 = request.form['req-data-1']
+        read_db(data_1)
+        return render_template("map.html",logged=True, ads=ads)
+    if 'username' in session:
+        return render_template("map.html", logged=True, ads=ads)
+    return render_template("map.html", logged=False, ads=ads)
+
+def read_db(data_1):
+    c.execute("SELECT * FROM ?", (data_1,))
+    read_data_1 = c.fetchall()
+    print(read_data_1)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == 'POST':

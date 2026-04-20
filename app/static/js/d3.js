@@ -14,6 +14,7 @@ async function load_chart(){
     try {
         const response = await fetch("/static/data/unemployment.csv");
         const text = await response.text();
+        console.log(text);
         payrollData = d3.csvParse(text);
         console.log("Data loaded:", payrollData);
     } catch (error) {
