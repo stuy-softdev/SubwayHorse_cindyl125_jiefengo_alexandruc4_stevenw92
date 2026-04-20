@@ -75,3 +75,7 @@ alexandruC -- 2026-04-20 03:22
 
 jiefengO -- 2026-04-20 05:05
   - trying to get data from sqlite to d3.js but its not working at all
+
+  cindyL -- 2026-04-20 12:30
+    - began search page
+    BUG: will currently crash because the function is not done and does not work

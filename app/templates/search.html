@@ -35,13 +35,15 @@
           {% endfor %}
         </div>
         <div class="h-full w-2/3">
-          {% for query in queries %}
-            <input class="px-3 border rounded-full text-lg" type="text" name={{query}}>
-            <br>
-          {% endfor %}
+          <form "{{ url_for('search') }}" method="POST">
+            {% for query in queries %}
+              <input class="px-3 border rounded-full text-lg" type="text" id={{query}} name={{query}}>
+              <br>
+            {% endfor %}
+            <button class="text-gray-800 p-5 hover:text-gray-400" type="submit">SEARCH</button>
+          </form>
         </div>
       </div>
-      <button class="text-gray-800 p-5 hover:text-gray-400" type="submit">SEARCH</button>
     </div>
     <div class="flex flex-col h-full w-1/5 items-center mt-3">
       <div class="my-3 h-4/5 w-4/5 bg-yellow-200 text-center items-center text-xl font-mono">

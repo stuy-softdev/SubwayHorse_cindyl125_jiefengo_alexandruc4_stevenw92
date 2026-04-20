@@ -109,9 +109,16 @@ def search():
         "total_other_pay",
     ]
     if request.method == "POST":
+        entries=[]
         db = sqlite3.connect('nyc_payroll.db')
         c = db.cursor()
+        for query in queries:
+            entries.append(request.form[query])
+            command = "SELECT * FROM table_query WHERE "
+            command += queries[i] + "= ? AND "
+        command = command[:-4]
         
+
     return render_template('search.html', queries=queries)
 
 if __name__ == "__main__": #false if this file imported as module
