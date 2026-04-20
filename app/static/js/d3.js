@@ -11,19 +11,26 @@ async function load_chart(){
 
     // Testing csv reading
     var payrollData;
-    await fetch("/static/data/unemployment.csv")
-        .then(response => response.text())
-        .then(text => {
-            payrollData = d3.csvParse(text);
-            console.log(payrollData);
-        });
-    console.log('hi');
-    console.log(payrollData);
+    try {
+        const response = await fetch("/static/data/unemployment.csv");
+        const text = await response.text();
+        payrollData = d3.csvParse(text);
+        console.log("Data loaded:", payrollData);
+    } catch (error) {
+        console.error("Data not loaded:", error);
+        return;
+    }
 
+    // select container
+    const container = d3.select("#container");
+    container.html("");
+
+    const div = container.append("div").attr("class", "my-6 bg-white p-4 rounded shadow text-left");
+    div.append("h2").text("Rate Distribution").attr("class", "text-xl font-bold mb-2 text-black");
     // Bin the data.
     const bins = d3.bin()
     .thresholds(40)
-    .value((d) => d.rate)
+    .value((d) => +d.rate || 0)
     (payrollData);
 
     console.log("bins:");
@@ -39,13 +46,11 @@ async function load_chart(){
     .domain([0, d3.max(bins, (d) => d.length)])
     .range([height - marginBottom, marginTop]);
 
-    console.log(d3.max(bins, (d) => d.length))
     // Create the SVG container.
     const svg = d3.create("svg")
     .attr("width", width)
     .attr("height", height)
     .attr("viewBox", [0, 0, width, height])
-    .attr("style", "max-width: 100%; height: auto;");
 
     // Add a rect for each bin.
     svg.append("g")
@@ -61,6 +66,8 @@ async function load_chart(){
     // Add the x-axis and label.
     svg.append("g")
     .attr("transform", `translate(0,${height - marginBottom})`)
+    .call(d3.axisBottom(x1));
+    /*
     .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0))
     .call((g) => g.append("text")
         .attr("x", width)
@@ -68,10 +75,12 @@ async function load_chart(){
         .attr("fill", "currentColor")
         .attr("text-anchor", "end")
         .text("Unemployment rate (%) →"));
-
+    */
     // Add the y-axis and label, and remove the domain line.
     svg.append("g")
     .attr("transform", `translate(${marginLeft},0)`)
+    .call(d3.axisLeft(y1));
+    /*
     .call(d3.axisLeft(y).ticks(height / 40))
     .call((g) => g.select(".domain").remove())
     .call((g) => g.append("text")
@@ -80,9 +89,9 @@ async function load_chart(){
         .attr("fill", "currentColor")
         .attr("text-anchor", "start")
         .text("↑ Frequency (no. of counties)"));
-
+    */
     // Append the SVG element.
-    container.append(svg.node());
+    div.append(() => svg.node());
 }
 
 load_chart()
