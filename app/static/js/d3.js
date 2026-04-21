@@ -1,5 +1,10 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
+const loadingButton = document.getElementById("loading_button");
+loadingButton.addEventListener("click", function() {
+    load_chart()
+});
+
 async function load_chart(){
     // Declare the chart dimensions and margins.
     const width = 640;
@@ -12,9 +17,13 @@ async function load_chart(){
     // Testing csv reading
     var payrollData;
     try {
-        const response = await fetch("/static/data/unemployment.csv");
-        const text = await response.text();
-        console.log(text);
+        const x_axis = document.getElementById("x_axis").value;
+        const y_axis = document.getElementById("y_axis").value;
+
+        const response = await fetch(`/api?x_axis=${x_axis}&y_axis=${y_axis}`);
+        console.log(response);
+        const json = await response.json();
+        console.log(json);
         payrollData = d3.csvParse(text);
         console.log("Data loaded:", payrollData);
     } catch (error) {
@@ -179,6 +188,4 @@ async function load_chart(){
 
     div3.append(() => svg3.node());
 }
-
-load_chart()
 

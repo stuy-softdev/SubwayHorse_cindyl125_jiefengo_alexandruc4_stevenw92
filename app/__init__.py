@@ -118,8 +118,8 @@ def api():
         "total_other_pay",
     ]
 
-    x_axis = request.args.get("x-axis")
-    y_axis = request.args.get("y-axis")
+    x_axis = request.args.get("x_axis")
+    y_axis = request.args.get("y_axis")
 
     if x_axis in valid_tables and y_axis in valid_tables:
         db = sqlite3.connect("nyc_payroll.db")
@@ -127,6 +127,8 @@ def api():
         c.execute(f"SELECT {x_axis}, {y_axis} FROM payroll_data LIMIT 1000")
         data = c.fetchall()
         return jsonify(data)
+    else:
+        return render_template('map.html')
 
     
 
