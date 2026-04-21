@@ -124,7 +124,7 @@ def api():
     if x_axis in valid_tables and y_axis in valid_tables:
         db = sqlite3.connect("nyc_payroll.db")
         c = db.cursor()
-        c.execute(f"SELECT {x_axis}, {y_axis} FROM payroll_data")
+        c.execute(f"SELECT {x_axis}, {y_axis} FROM payroll_data ORDER BY RANDOM() LIMIT 20000")
         data = c.fetchall()
         return jsonify(data)
     else:
