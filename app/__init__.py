@@ -154,6 +154,9 @@ def search():
         "total_ot_paid",
         "total_other_pay",
     ]
+    logged=False
+    if 'username' in session:
+        logged=True
     if request.method == "POST":
         entries=[]
         reqs=[]
@@ -173,8 +176,8 @@ def search():
         c.execute(command, reqs)
         results = c.fetchall()
         db.close()
-        return render_template('search.html', queries=queries, results=results)
-    return render_template('search.html', queries=queries, results=[])
+        return render_template('search.html', queries=queries, results=results, logged=logged)
+    return render_template('search.html', queries=queries, results=[], logged=logged)
 
 if __name__ == "__main__": #false if this file imported as module
     app.debug = True  #enable PSOD, auto-server-restart on code chg

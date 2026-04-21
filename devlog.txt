@@ -92,6 +92,7 @@ jiefengO -- 2024-04-20 11:40
   - buggy img src removed
   - removed placeholders and unnecessary formatting on html
   - headers added to html and py files (not js)
+  - fixed logged/not logged tracking in search page
 
   NOTABLE DESIGN REVISIONS:
   ------------------------------------
