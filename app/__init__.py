@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, flash
 import sqlite3, random
 from datetime import datetime
-
 app = Flask(__name__)
 app.debug = True
 app.secret_key = "sdiofwebjkmsdfo78902178904uhhkfsdbndzmdpwao3ryiohelloworld"
@@ -20,6 +19,15 @@ ad_links = [
     "https://images.squarespace-cdn.com/content/v1/6273fd18e26b4a2b39ad9bd9/ae644a84-db0e-4d60-af78-7e3036d1c273/Queens+Job+Fair+2023-+Final_02.png",
     "https://africainharlem.nyc/wp-content/uploads/2023/03/Applications-for-2023-Summer-Youth-Employment-Program-SYEP-open-for-youth-and-employers.jpeg"
 ]
+
+ad_links2 = [
+    "https://www.manhattanbp.nyc.gov/wp-content/uploads/2023/05/Hiring-Hall_May20_2023_Flyer-2.jpg",
+    "https://hhinternet.blob.core.windows.net/uploads/2022/09/chs-we-are-hiring-licensed-practical-nurse-event-september-2022-cover-768x768.jpg",
+    "https://nychajournal.nyc/wp-content/uploads/2025/03/Jobs-NYC-hiring-hall.png",
+    "https://wsdash.b-cdn.net/gb/services/company/k55now/opengraph-image",
+    "https://iemlabs.com/blogs/wp-content/uploads/sites/4/2022/12/HOW-TO-GET-A-JOB-IN-NYC.jpg",
+    "https://nycjobfairs.com/wp-content/uploads/2024/12/1000082729.jpg?w=768"
+]
 #Flask routes home page
 '''
 @app.route("/map", methods=["GET","POST"])
@@ -31,9 +39,10 @@ def map():
 @app.route("/", methods=['GET', 'POST']) #map if session exists, otherwise go to login
 def index():
     ads = random.sample(ad_links, 3)
+    ads2 = random.sample(ad_links2, 3)
     if 'username' in session:
-        return render_template("map.html", logged=True, ads=ads)
-    return render_template("map.html", logged=False, ads=ads)
+        return render_template("map.html", logged=True, ads=ads, ads2=ads2)
+    return render_template("map.html", logged=False, ads=ads, ads2=ads2)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -110,16 +119,25 @@ def search():
     ]
     if request.method == "POST":
         entries=[]
-        db = sqlite3.connect('nyc_payroll.db')
-        c = db.cursor()
+        reqs=[]
         for query in queries:
-            entries.append(request.form[query])
-            command = "SELECT * FROM table_query WHERE "
-            command += queries[i] + "= ? AND "
-        command = command[:-4]
-        
+            req = request.form.get(query, "").strip().upper()
+            if req:
+                entries.append(f"{query} = ?")
+                reqs.append(req)
 
-    return render_template('search.html', queries=queries)
+        command = "SELECT * FROM payroll_data"
+        if entries:
+            command += " WHERE " + " AND ".join(entries)
+
+        command += " LIMIT 50"
+        db = sqlite3.connect("nyc_payroll.db")
+        c = db.cursor()
+        c.execute(command, reqs)
+        results = c.fetchall()
+        db.close()
+        return render_template('search.html', queries=queries, results=results)
+    return render_template('search.html', queries=queries, results=[])
 
 if __name__ == "__main__": #false if this file imported as module
     app.debug = True  #enable PSOD, auto-server-restart on code chg

@@ -4,7 +4,7 @@
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script type="module" src="static/js/d3.js"></script>
 </head>
-<body>
+<body class="bg-stone-50">
   <nav class="fixed w-full top-0 z-50 bg-stone-200 shadow-md">
     <div class="flex flex-row justify-evenly py-4 text-2xl font-serif font-bold">
       {% if logged %}
@@ -19,8 +19,9 @@
 <div class="flex flex-row w-full h-full mt-16">
   <br>
   <div class="flex flex-col h-full w-1/5 items-center mt-3">
-    <div class="my-3 aspect-1/2 h-4/5 w-4/5 bg-red-300 text-2xl text-center font-mono">
+    <div class="my-3 h-4/5 w-4/5 font-semibold bg-yellow-200 text-center items-center text-xl font-mono">
         {% if not logged %}
+        LOG IN TO REMOVE ADS!
           {% for ad in ads %}
             <img src={{ad}}>
           {% endfor %}
@@ -28,12 +29,15 @@
     </div>
   </div>
   <div class="h-full w-3/5 items-center text-center">
-    <div class="bg-red-500" id="container">placeholder D</div>
+    <div class="bg-red-500" id="container"></div>
   </div>
   <div class="flex flex-col h-full w-1/5 items-center mt-3">
-    <div class="my-3 h-4/5 w-4/5 bg-yellow-200 text-center items-center text-xl font-mono">
+    <div class="my-3 h-4/5 w-4/5 font-semibold bg-yellow-200 text-center items-center text-xl font-mono">
       {% if not logged %}
         LOG IN TO REMOVE ADS!
+        {% for ad in ads2 %}
+            <img src={{ad}}>
+          {% endfor %}
       {% endif %}
     </div>
   </div>

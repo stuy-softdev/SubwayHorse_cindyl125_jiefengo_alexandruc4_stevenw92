@@ -3,7 +3,7 @@
 <head>
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
 </head>
-<body>
+<body class="bg-stone-50">
   <nav class="fixed w-full top-0 z-50 bg-stone-200 shadow-md">
     <div class="flex flex-row justify-evenly py-4 text-2xl font-serif font-bold">
       {% if logged %}
@@ -15,42 +15,48 @@
       <a class="hover:text-slate-400" href="{{ url_for('index') }}">MAP</a>
     </div>
   </nav>
-  <div class="flex flex-row w-full h-full mt-16">
-    <br>
-    <div class="flex flex-col h-full w-1/5 items-center mt-3">
-      <div class="my-3 aspect-1/2 h-4/5 w-4/5 bg-red-300 text-2xl text-center font-mono">
-          {% if not logged %}
-            {% for ad in ads %}
-              <img src={{ad}}>
-            {% endfor %}
-          {% endif %}
-      </div>
-    </div>
-    <div class="h-full flex flex-col items-center">
-      <div class="grid grid-flow-col grid-cols-2 grid-rows-17">
-        <div class="h-full text-right">
-          {% for query in queries %}
-            {{query}}
-            <br>
-          {% endfor %}
-        </div>
-        <div class="h-full w-2/3">
-          <form "{{ url_for('search') }}" method="POST">
+  <div class="flex flex-row w-full pt-3 mt-16 items-center mx-3">
+    <div class="h-full w-full flex flex-col items-center text-mono">
+        <form action="{{ url_for('search') }}" method="POST">
+          <div class="grid grid-cols-6 gap-x-2 gap-y-2">
             {% for query in queries %}
-              <input class="px-3 border rounded-full text-lg" type="text" id={{query}} name={{query}}>
-              <br>
+              <label class="h-full text-right">{{query}}: </label>
+              <input class="px-3 border rounded-full text-lg w-full" type="text" id={{query}} name={{query}}>
             {% endfor %}
-            <button class="text-gray-800 p-5 hover:text-gray-400" type="submit">SEARCH</button>
-          </form>
+          </div>
+          <div class="flex justify-center my-3">
+            <button class="text-2xl border rounded-full border-4 border-stone-100 px-2 hover:text-gray-400" type="submit">SEARCH</button>
+          </div>
+        </form>
+      {% if results %}
+        <div class="mt-8 font-mono w-full">
+          <h1 class="text-2xl text-center font-semibold my-3">top 50 Results</h1>
+          <div class="overflow-auto max-h-[500px] border rounded-lg shadow-2xl shadow-blue-900">
+            <table class="table-auto text-sm text-left">
+              <thead class="sticky top-0 bg-slate-50">
+                <tr>
+                  {% for query in queries %}
+                    <th class="px-4 py-3 border-b font-semibold whitespace-nowrap">
+                      {{ query }}
+                    </th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in results %}
+                  <tr class="hover:bg-gray-50">
+                    {% for value in row %}
+                      <td class="px-4 py-2 border-b whitespace-nowrap">
+                        {{ value }}
+                      </td>
+                    {% endfor %}
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="flex flex-col h-full w-1/5 items-center mt-3">
-      <div class="my-3 h-4/5 w-4/5 bg-yellow-200 text-center items-center text-xl font-mono">
-        {% if not logged %}
-          LOG IN TO REMOVE ADS!
-        {% endif %}
-      </div>
+      {% endif %}
     </div>
   </div>
 </body>
