@@ -27,3 +27,10 @@ cd SubwayHorse_cindyl125_jiefengo_alexandruc4_stevenw92
 ```
 pip install -r requirements.txt
 ```
+
+### FEATURE SPOTLIGHT
+* ads!! remove them by logging in, or bask in capitalism
+* users are recommended to search by name
+
+### KNOWN BUGS/ISSUES
+* whaaaat why
