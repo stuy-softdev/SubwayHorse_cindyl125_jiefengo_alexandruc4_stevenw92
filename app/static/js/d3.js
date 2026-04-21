@@ -23,8 +23,13 @@ async function load_chart(){
         const response = await fetch(`/api?x_axis=${x_axis}&y_axis=${y_axis}`);
         const json = await response.json();
         console.log(json);
-
         
+        payrollData = [];
+        for(let i = 0; i < json.length; i++){
+            payrollData.push({x_axis: json[i][0], y_axis: json[i][1]})
+        }
+        console.log(payrollData);
+
     } catch (error) {
         console.error("Data not loaded:", error);
         return;
@@ -39,7 +44,7 @@ async function load_chart(){
     // Bin the data.
     const bins = d3.bin()
     .thresholds(40)
-    .value((d) => +d.rate || 0)
+    .value((d) => +d.x_axis)
     (payrollData);
 
     console.log("bins:");
@@ -68,14 +73,14 @@ async function load_chart(){
     .data(bins)
     .join("rect")
     .attr("x", (d) => x(d.x0) + 1)
-    .attr("width", (d) => x(d.x1) - x(d.x0) - 1)
+    .attr("width", (d) => x(d.x1) - x(d.x0))
     .attr("y", (d) => y(d.length))
     .attr("height", (d) => y(0) - y(d.length));
 
     // Add the x-axis and label.
     svg.append("g")
     .attr("transform", `translate(0,${height - marginBottom})`)
-    .call(d3.axisBottom(x1));
+    .call(d3.axisBottom(x));
     /*
     .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0))
     .call((g) => g.append("text")
@@ -88,7 +93,7 @@ async function load_chart(){
     // Add the y-axis and label, and remove the domain line.
     svg.append("g")
     .attr("transform", `translate(${marginLeft},0)`)
-    .call(d3.axisLeft(y1));
+    .call(d3.axisLeft(y));
     /*
     .call(d3.axisLeft(y).ticks(height / 40))
     .call((g) => g.select(".domain").remove())
