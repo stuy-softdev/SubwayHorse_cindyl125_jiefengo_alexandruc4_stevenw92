@@ -84,18 +84,9 @@ cindyL -- 2026-04-20 20:12
  - search page up and functional
  - all tailwind styling done
 
-jiefengO -- 2024-04-20 11:40
+jiefengO -- 2024-04-20 23:40
  - data is finally being sent to js (but limited to 20k random rows because remote server crashes otherwise)
  - graphs appear but don't look pretty because they aren't formatted correctly
 
- cindyL -- 2026-04-21 10:47
-  - buggy img src removed
-  - removed placeholders and unnecessary formatting on html
-  - headers added to html and py files (not js)
-  - fixed logged/not logged tracking in search page
-
-  NOTABLE DESIGN REVISIONS:
-  ------------------------------------
-  * added a search.html, which allows users a lookup functionality via table.
-  * added build_db.py to set up database
-  ====================================
+ jiefengO -- 2024-04-21 11:00
+  - working on formatting data
