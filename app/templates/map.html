@@ -26,9 +26,9 @@ P04: Makers Makin' It, Act II - The Seequel
 <div class="flex flex-row w-full h-full mt-16">
   <br>
   <div class="flex flex-col h-full w-1/5 items-center mt-3">
-    <div class="my-3 h-4/5 w-4/5 font-semibold bg-yellow-200 text-center items-center text-xl font-mono">
+    <div class="my-3 h-4/5 w-4/5 items-center">
         {% if not logged %}
-        LOG IN TO REMOVE ADS!
+        <div class="font-semibold bg-yellow-200 text-center text-xl font-mono">LOG IN TO REMOVE ADS!</div>
           {% for ad in ads %}
             <img src={{ad}}>
           {% endfor %}
@@ -78,9 +78,9 @@ P04: Makers Makin' It, Act II - The Seequel
     <div id="container"></div>
   </div>
   <div class="flex flex-col h-full w-1/5 items-center mt-3">
-    <div class="my-3 h-4/5 w-4/5 font-semibold bg-yellow-200 text-center items-center text-xl font-mono">
-      {% if not logged %}
-        LOG IN TO REMOVE ADS!
+    <div class="my-3 h-4/5 w-4/5 items-center">
+        {% if not logged %}
+        <div class="font-semibold bg-yellow-200 text-center text-xl font-mono">LOG IN TO REMOVE ADS!</div>
         {% for ad in ads2 %}
             <img src={{ad}}>
           {% endfor %}

@@ -35,12 +35,6 @@ ad_links2 = [
     "https://iemlabs.com/blogs/wp-content/uploads/sites/4/2022/12/HOW-TO-GET-A-JOB-IN-NYC.jpg",
     "https://nycjobfairs.com/wp-content/uploads/2024/12/1000082729.jpg?w=768"
 ]
-#Flask routes home page
-'''
-@app.route("/map", methods=["GET","POST"])
-def map():
-  return render_template("map.html")
-'''
 
 #login and register functions
 @app.route("/", methods=['GET', 'POST']) #map if session exists, otherwise go to login
