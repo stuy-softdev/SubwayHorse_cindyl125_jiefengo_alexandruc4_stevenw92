@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for, flash
+from flask import Flask, render_template, request, redirect, session, url_for, flash, jsonify
 import sqlite3, random
 from datetime import datetime
 app = Flask(__name__)
@@ -95,6 +95,40 @@ def register():
     session['username'] = username
     return redirect(url_for('index'))
   return render_template('register.html')
+
+@app.route("/api")
+def api():
+    valid_tables=[
+        "fiscal_year",
+        "payroll_number",
+        "agency_name",
+        "last_name",
+        "first_name",
+        "mid_init",
+        "agency_start_date",
+        "work_location_borough",
+        "title_description",
+        "leave_status_as_of_june_30",
+        "base_salary",
+        "pay_basis",
+        "regular_hours",
+        "regular_gross_paid",
+        "ot_hours",
+        "total_ot_paid",
+        "total_other_pay",
+    ]
+
+    x_axis = request.args.get("x-axis")
+    y_axis = request.args.get("y-axis")
+
+    if x_axis in valid_tables and y_axis in valid_tables:
+        db = sqlite3.connect("nyc_payroll.db")
+        c = db.cursor()
+        c.execute(f"SELECT {x_axis}, {y_axis} FROM payroll_data LIMIT 1000")
+        data = c.fetchall()
+        return jsonify(data)
+
+    
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
