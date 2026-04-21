@@ -21,11 +21,10 @@ async function load_chart(){
         const y_axis = document.getElementById("y_axis").value;
 
         const response = await fetch(`/api?x_axis=${x_axis}&y_axis=${y_axis}`);
-        console.log(response);
         const json = await response.json();
         console.log(json);
-        payrollData = d3.csvParse(text);
-        console.log("Data loaded:", payrollData);
+
+        
     } catch (error) {
         console.error("Data not loaded:", error);
         return;
