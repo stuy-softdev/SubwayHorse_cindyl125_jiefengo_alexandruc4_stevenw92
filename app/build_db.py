@@ -1,3 +1,11 @@
+'''
+Steven Wu, Alexandru Cimpoiesu, Jiefeng Ou, Cindy Liu
+SubwayHorse
+SoftDev
+P04: Makers Makin' It, Act II - The Seequel
+04/22/2026
+'''
+
 import sqlite3
 import csv
 import os

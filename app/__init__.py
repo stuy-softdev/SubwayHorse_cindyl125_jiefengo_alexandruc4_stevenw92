@@ -1,3 +1,11 @@
+'''
+Steven Wu, Alexandru Cimpoiesu, Jiefeng Ou, Cindy Liu
+SubwayHorse
+SoftDev
+P04: Makers Makin' It, Act II - The Seequel
+04/22/2026
+'''
+
 from flask import Flask, render_template, request, redirect, session, url_for, flash, jsonify
 import sqlite3, random
 from datetime import datetime
@@ -24,7 +32,6 @@ ad_links2 = [
     "https://www.manhattanbp.nyc.gov/wp-content/uploads/2023/05/Hiring-Hall_May20_2023_Flyer-2.jpg",
     "https://hhinternet.blob.core.windows.net/uploads/2022/09/chs-we-are-hiring-licensed-practical-nurse-event-september-2022-cover-768x768.jpg",
     "https://nychajournal.nyc/wp-content/uploads/2025/03/Jobs-NYC-hiring-hall.png",
-    "https://wsdash.b-cdn.net/gb/services/company/k55now/opengraph-image",
     "https://iemlabs.com/blogs/wp-content/uploads/sites/4/2022/12/HOW-TO-GET-A-JOB-IN-NYC.jpg",
     "https://nycjobfairs.com/wp-content/uploads/2024/12/1000082729.jpg?w=768"
 ]
@@ -130,7 +137,7 @@ def api():
     else:
         return render_template('map.html')
 
-    
+
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
