@@ -84,9 +84,12 @@ cindyL -- 2026-04-20 20:12
  - search page up and functional
  - all tailwind styling done
 
-jiefengO -- 2024-04-20 23:40
+jiefengO -- 2026-04-20 23:40
  - data is finally being sent to js (but limited to 20k random rows because remote server crashes otherwise)
  - graphs appear but don't look pretty because they aren't formatted correctly
 
- jiefengO -- 2024-04-21 11:00
+ jiefengO -- 2026-04-21 11:00
   - working on formatting data
+
+alexandruC -- 2026-04-21 20:32
+  - api route for yearly data

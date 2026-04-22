@@ -131,7 +131,18 @@ def api():
     else:
         return render_template('map.html')
 
-
+@app.route("/api/years")
+def spike_years_api():
+    db = sqlite3.connect("nyc_payroll.db")
+    c = db.cursor()
+    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='summary_borough_year'")
+    if c.fetchone():
+        c.execute("SELECT DISTINCT fiscal_year FROM summary_borough_year ORDER BY fiscal_year")
+    else:
+        c.execute("SELECT DISTINCT CAST(fiscal_year AS INTEGER) FROM payroll_data WHERE fiscal_year IS NOT NULL ORDER BY fiscal_year")
+    years = [row[0] for row in c.fetchall() if row[0] is not None]
+    db.close()
+    return jsonify(years)
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
