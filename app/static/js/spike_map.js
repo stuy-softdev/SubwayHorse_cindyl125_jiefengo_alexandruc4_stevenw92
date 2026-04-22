@@ -73,7 +73,7 @@ function render(metric) {
     const currentYear = data1.fiscal_year ?? 0;
     const prevYear = prev?.fiscal_year ?? 0;
     if (!prev || currentYear > prevYear) {
-        byBorough.set(d.borough, data1);
+        byBorough.set(data1.borough, data1);
     }}
   const data     = Array.from(byBorough.values());
   const getValue = data2 => data2[metric] ?? 0;
@@ -123,5 +123,59 @@ function render(metric) {
     .style("white-space",    "nowrap")
     .style("z-index",        20)
     .style("box-shadow",     "0 2px 8px rgba(0,0,0,0.4)");
+  
+  nycBoroughs.forEach(name => {
+    const borough    = byBorough.get(name);
+    const pin  = boroughPins[name];
+    if (!borough || !pin) return;
 
+    const changeX = pin.x * 1000;
+    const changeY = pin.y * 1000;
+    const height   = heightScale(getValue(borough)) * (1000 / 680);
+    const spikeW  = spikeWidth * (1000 / 680);
+    const col = colorSpike(getValue(borough));
+    const spikePath = `M${changeX - spikeW/2},${changeY} L${changeX},${changeY - height} L${changeX + spikeW/2},${changeY} Z`; //makes spike
+    svg.append("path")
+      .attr("d", spikePath)
+      .attr("fill", "transparent")
+      .attr("stroke", "none")
+      .style("pointer-events", "all")
+      .style("cursor", "pointer")
+      .on("mouseover", function(event) {
+        spike.attr("opacity", 1).attr("stroke-width", 1.5).attr("stroke", "#000");
+        tooltip.transition().duration(100).style("opacity", 1);
+        tooltip.html(
+          `<strong style="font-size:13px">${name}</strong><br>` +
+          (borough.fiscal_year ? `<span style="color:#aaa">FY ${borough.fiscal_year}</span><br>` : "") +
+          `${metricLabel[metric]}: <strong>${formatVal(metric, getValue(borough))}</strong><br>` +
+          `Headcount: ${numFmt(borough.headcount ?? 0)}`
+        );
+      })
+      .on("mousemove", function(event) {
+        const rect = cont.getBoundingClientRect();
+        tooltip.style("left", (event.clientX - rect.left + 14) + "px")
+               .style("top",  (event.clientY - rect.top  - 20) + "px");
+      })
+      .on("mouseout", function() {
+        spike.attr("opacity", 0.88).attr("stroke-width", 0.8).attr("stroke", "#222");
+        tooltip.transition().duration(250).style("opacity", 0);
+      });
+    const spike = svg.append("path")
+      .attr("d", spikePath)
+      .attr("fill",         col)
+      .attr("stroke",       "#222")
+      .attr("stroke-width", 0.8)
+      .attr("opacity",      0.88)
+      .style("pointer-events", "none");
+    svg.append("text")
+      .attr(changeX)
+      .attr("y", changeY - height - 6)
+      .attr("text-anchor", "middle")
+      .attr("font-size",   "28px")
+      .attr("font-family", "monospace")
+      .attr("fill",        "#111")
+      .attr("font-weight", "600")
+      .style("pointer-events", "none")
+      .text(formatVal(metric, getValue(borough)));
+  });
 }
