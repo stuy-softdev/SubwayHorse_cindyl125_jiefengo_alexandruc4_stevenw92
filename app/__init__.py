@@ -131,6 +131,39 @@ def api():
     else:
         return render_template('map.html')
 
+@app.route("/api/map")
+def spike_map_api():
+    year = request.args.get("year", None)
+    db = sqlite3.connect("nyc_payroll.db")
+    c = db.cursor()
+    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='summary_borough_year'")
+    summary = c.fetchone() is not None
+    keys = ["borough", "fiscal_year", "headcount", "avg_base_salary", "avg_gross_paid", "avg_total_comp", "avg_ot_hours"]
+    if summary:
+        if year:
+            c.execute("SELECT borough, fiscal_year, headcount, avg_base_salary, avg_gross_paid, avg_total_comp, avg_ot_hours FROM summary_borough_year WHERE fiscal_year = ? AND borough IS NOT NULL ORDER BY borough", (int(year),))
+        else:
+            c.execute("SELECT borough, fiscal_year, headcount, avg_base_salary, avg_gross_paid, avg_total_comp, avg_ot_hours FROM summary_borough_year WHERE borough IS NOT NULL ORDER BY borough, fiscal_year")
+        result = [dict(zip(keys, row)) for row in c.fetchall()]
+    else:
+        money = "CAST(REPLACE(REPLACE({c}, '$', ''), ',', '') AS REAL)"
+        base, gross, ot, other = money.format(c="base_salary"), money.format(c="regular_gross_paid"), money.format(c="total_ot_paid"), money.format(c="total_other_pay")
+        data = f"AND fiscal_year = {int(year)}" if year else ""
+        c.execute(f"""
+            SELECT CASE work_location_borough
+                WHEN 'MANHATTAN' THEN 'Manhattan' WHEN 'BROOKLYN' THEN 'Brooklyn'
+                WHEN 'QUEENS' THEN 'Queens' WHEN 'BRONX' THEN 'Bronx'
+                WHEN 'RICHMOND' THEN 'Staten Island' WHEN 'STATEN ISLAND' THEN 'Staten Island'
+                ELSE NULL END AS borough,
+            CAST(fiscal_year AS INTEGER), COUNT(*), AVG({base}), AVG({gross}), AVG({gross}+{ot}+{other}), AVG(ot_hours)
+            FROM payroll_data
+            WHERE work_location_borough IN ('MANHATTAN','BROOKLYN','QUEENS','BRONX','RICHMOND','STATEN ISLAND') {data}
+            GROUP BY borough, fiscal_year ORDER BY borough, fiscal_year
+        """)
+        result = [dict(zip(keys, row)) for row in c.fetchall()]
+    db.close()
+    return jsonify(result)
+
 @app.route("/api/years")
 def spike_years_api():
     db = sqlite3.connect("nyc_payroll.db")

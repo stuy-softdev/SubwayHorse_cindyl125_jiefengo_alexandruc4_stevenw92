@@ -93,3 +93,6 @@ jiefengO -- 2026-04-20 23:40
 
 alexandruC -- 2026-04-21 20:32
   - api route for yearly data
+
+alexandruC -- 2026-04-21 20:52
+  - api route for map data
