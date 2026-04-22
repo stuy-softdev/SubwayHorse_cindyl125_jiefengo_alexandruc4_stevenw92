@@ -53,9 +53,64 @@ def build():
     ot_pay       = money.format(col="total_ot_paid")
     other_pay    = money.format(col="total_other_pay")
     total_comp   = f"({gross_pay} + {ot_pay} + {other_pay})"
+
     run(db, """
         CREATE INDEX IF NOT EXISTS payroll_year      ON payroll_data(fiscal_year);
         CREATE INDEX IF NOT EXISTS payroll_borough ON payroll_data(work_location_borough);
         CREATE INDEX IF NOT EXISTS payroll_agency  ON payroll_data(agency_name);
         CREATE INDEX IF NOT EXISTS payroll_title   ON payroll_data(title_description);
+    """)
+
+    run(db, f"""
+        DROP TABLE IF EXISTS summary_borough_year;
+        CREATE TABLE summary_borough_year AS
+        SELECT CAST(fiscal_year AS INTEGER) AS fiscal_year, {borough} AS borough,
+            COUNT(*) AS headcount, AVG({base_salary}) AS avg_base_salary,
+            AVG({gross_pay}) AS avg_gross_paid, AVG({total_comp}) AS avg_total_comp,
+            SUM({ot_pay}) AS total_ot_paid, AVG(ot_hours) AS avg_ot_hours
+        FROM payroll_data WHERE {borough} IS NOT NULL AND fiscal_year IS NOT NULL
+        GROUP BY fiscal_year, borough;
+        CREATE INDEX borough_year ON summary_borough_year(fiscal_year, borough);
+    """)
+
+    run(db, f"""
+        DROP TABLE IF EXISTS summary_agency_borough_year;
+        CREATE TABLE summary_agency_borough_year AS
+        SELECT CAST(fiscal_year AS INTEGER) AS fiscal_year, agency_name, {borough} AS borough,
+            COUNT(*) AS headcount, AVG({base_salary}) AS avg_base_salary,
+            AVG({gross_pay}) AS avg_gross_paid, AVG({total_comp}) AS avg_total_comp
+        FROM payroll_data WHERE {borough} IS NOT NULL AND fiscal_year IS NOT NULL AND agency_name IS NOT NULL
+        GROUP BY fiscal_year, agency_name, borough;
+        CREATE INDEX agency_borough ON summary_agency_borough_year(agency_name, fiscal_year, borough);
+    """)
+
+    run(db, f"""
+        DROP TABLE IF EXISTS summary_title_borough_year;
+        CREATE TABLE summary_title_borough_year AS
+        SELECT CAST(fiscal_year AS INTEGER) AS fiscal_year, title_description, {borough} AS borough,
+            COUNT(*) AS headcount, AVG({base_salary}) AS avg_base_salary,
+            AVG({gross_pay}) AS avg_gross_paid, AVG({total_comp}) AS avg_total_comp
+        FROM payroll_data WHERE {borough} IS NOT NULL AND fiscal_year IS NOT NULL AND title_description IS NOT NULL
+        GROUP BY fiscal_year, title_description, borough;
+        CREATE INDEX title_borough ON summary_title_borough_year(title_description, fiscal_year, borough);
+    """)
+
+    run(db, f"""
+        DROP TABLE IF EXISTS summary_title_year;
+        CREATE TABLE summary_title_year AS
+        SELECT CAST(fiscal_year AS INTEGER) AS fiscal_year, title_description,
+            COUNT(*) AS headcount, AVG({base_salary}) AS avg_base_salary, AVG({total_comp}) AS avg_total_comp
+        FROM payroll_data WHERE fiscal_year IS NOT NULL AND title_description IS NOT NULL AND TRIM(title_description) != ''
+        GROUP BY fiscal_year, title_description;
+        CREATE INDEX title_year ON summary_title_year(fiscal_year, avg_base_salary);
+    """)
+
+    run(db, f"""
+        DROP TABLE IF EXISTS summary_agency_year;
+        CREATE TABLE summary_agency_year AS
+        SELECT CAST(fiscal_year AS INTEGER) AS fiscal_year, agency_name,
+            COUNT(*) AS headcount, AVG({base_salary}) AS avg_base_salary, AVG({total_comp}) AS avg_total_comp
+        FROM payroll_data WHERE fiscal_year IS NOT NULL AND agency_name IS NOT NULL
+        GROUP BY fiscal_year, agency_name;
+        CREATE INDEX agency_year ON summary_agency_year(fiscal_year, avg_base_salary);
     """)
