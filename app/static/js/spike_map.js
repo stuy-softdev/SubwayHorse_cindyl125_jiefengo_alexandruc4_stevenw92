@@ -29,7 +29,7 @@ function formatVal(metric, val) {
   if (val == null) {return "N/A";}
   if (metric === "headcount") {return numFormat(val);}
   if (metric === "avg_ot_hours") {return floatFormat(val) + " hrs";}
-  return moneyFormat(v);
+  return moneyFormat(val);
 }
 
 let allData = [];
@@ -45,8 +45,8 @@ async function init() {
     if (years.length) yearElement.value = years[years.length -1];
   } catch(e) {console.warn("spike_years unavailable:", e);}
   await renderMap();
-  document.getElementById("spike_metric").addEventListener("change", render);
-  document.getElementById("spike_year").addEventListener("change",   render);
+  document.getElementById("spike_metric").addEventListener("change", renderMap);
+  document.getElementById("spike_year").addEventListener("change",   renderMap);
 }
 
 async function renderMap () {
@@ -60,7 +60,7 @@ async function renderMap () {
     cont.innerHTML = '<p class="text-red-500 font-mono text-center py-4">Failed to load data.</p>';
     return;
   }
-  renderMap(document.getElementById("spike_metric").value);
+  render(document.getElementById("spike_metric").value);
 }
 
 function render (metric) {
@@ -97,7 +97,7 @@ function render (metric) {
     const error = document.createElement("p");
     error.className= "text-red-400 font-mono text-sm text-center py-2";
     error.textContent = "Map image not found";
-    cont.insertBefore(error, svg_wrap);
+    cont.insertBefore(error, svg_wrapper);
   };
   cont.appendChild(img);
 
@@ -128,7 +128,7 @@ function render (metric) {
     .style("white-space",    "nowrap")
     .style("z-index",        20)
     .style("box-shadow",     "0 2px 8px rgba(0,0,0,0.4)");
-  
+
   nycBoroughs.forEach(name => {
     const borough    = byBorough.get(name);
     const pin  = boroughPins[name];
@@ -153,7 +153,7 @@ function render (metric) {
           `<strong style="font-size:13px">${name}</strong><br>` +
           (borough.fiscal_year ? `<span style="color:#aaa">FY ${borough.fiscal_year}</span><br>` : "") +
           `${metricLabel[metric]}: <strong>${formatVal(metric, getValue(borough))}</strong><br>` +
-          `Headcount: ${numFmt(borough.headcount ?? 0)}`
+          `Headcount: ${numFormat(borough.headcount ?? 0)}`
         );
       })
       .on("mousemove", function(event) {
@@ -173,7 +173,7 @@ function render (metric) {
       .attr("opacity",      0.88)
       .style("pointer-events", "none");
     svg.append("text")
-      .attr(changeX)
+      .attr("x", changeX)
       .attr("y", changeY - height - 6)
       .attr("text-anchor", "middle")
       .attr("font-size",   "28px")
