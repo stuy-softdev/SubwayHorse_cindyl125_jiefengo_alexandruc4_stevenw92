@@ -123,7 +123,19 @@ alexandruC -- 2026-04-22 00:16
  - started args render function.
 
  alexandruC -- 2026-04-22 01:12
-- added styling for pointer-events (aka like hover,clicks etc)
+  - added styling for pointer-events (aka like hover,clicks etc)
 
 alexandruC -- 2026-04-22 01:49
-- finished spike_map and added pins for the boroughs
+  - finished spike_map and added pins for the boroughs
+
+jiefengO -- 2026-04-22 5:12
+  - d3 chart works and shows stuff that makes sense
+  - edited feature spotlight & known bugs/issues
+
+NOTABLE DESIGN REVISIONS:
+------------------------------------
+  - Added search.html for custom searching
+  - Added SQLite and nyc_payroll.db for payroll data
+  - Added spike_map.js for the spike map
+  - Differentiated between spike map and custom chart
+====================================

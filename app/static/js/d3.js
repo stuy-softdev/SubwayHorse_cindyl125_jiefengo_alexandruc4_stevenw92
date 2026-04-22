@@ -1,3 +1,9 @@
+// Steven Wu, Alexandru Cimpoiesu, Jiefeng Ou, Cindy Liu
+// SubwayHorse
+// SoftDev
+// P04: Makers Makin' It, Act II - The Seequel
+// 04/22/2026
+
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
 const loadingButton = document.getElementById("loading_button");
