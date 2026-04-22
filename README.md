@@ -37,3 +37,4 @@ pip install -r requirements.txt
 ### KNOWN BUGS/ISSUES
 * the spike map & custom chart may fail to load data (its just too much data D:)
 * custom chart has no hover display, making it hard to read
+* custom chart also has its x-axis randomized and y-axis unreadable
