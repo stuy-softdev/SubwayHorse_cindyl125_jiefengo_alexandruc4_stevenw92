@@ -138,4 +138,5 @@ NOTABLE DESIGN REVISIONS:
   - Added SQLite and nyc_payroll.db for payroll data
   - Added spike_map.js for the spike map
   - Differentiated between spike map and custom chart
+  - Added build_summaries.py
 ====================================
