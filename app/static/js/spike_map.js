@@ -1,6 +1,11 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
 const boroughPins = {
+  "Bronx":         {x: 0.610, y: 0.250},
+  "Manhattan":     {x: 0.468, y: 0.435},
+  "Queens":        {x: 0.758, y: 0.415},
+  "Brooklyn":      {x: 0.594, y: 0.645},
+  "Staten Island": {x: 0.175, y: 0.768},
 
 }
 
@@ -39,12 +44,12 @@ async function init() {
     });
     if (years.length) yearElement.value = years[years.length -1];
   } catch(e) {console.warn("spike_years unavailable:", e);}
-  await render();
+  await renderMap();
   document.getElementById("spike_metric").addEventListener("change", render);
   document.getElementById("spike_year").addEventListener("change",   render);
 }
 
-async function render() {
+async function renderMap () {
   const year = document.getElementById("spike_year").value;
   const url  = "/api/map" + (year ? `?year=${encodeURIComponent(year)}` : "");
   const cont = document.getElementById("spike_map_container");
@@ -55,10 +60,10 @@ async function render() {
     cont.innerHTML = '<p class="text-red-500 font-mono text-center py-4">Failed to load data.</p>';
     return;
   }
-  render(document.getElementById("spike_metric").value);
+  renderMap(document.getElementById("spike_metric").value);
 }
 
-function render(metric) {
+function render (metric) {
   const cont = document.getElementById("spike_map_container");
   cont.innerHTML = "";
   cont.style.position = "relative";
@@ -178,4 +183,25 @@ function render(metric) {
       .style("pointer-events", "none")
       .text(formatVal(metric, getValue(borough)));
   });
+
+  const legendW = 280;
+  const legendX = 1000 - legendW - 20;
+  const legendY = 960;
+  const gradId  = "spike-legend-grad-img";
+  const defs = svg.append("defs");
+  const grad = defs.append("linearGradient").attr("id", gradId).attr("x1","0%").attr("x2","100%");
+  d3.range(11).forEach(i => {
+    grad.append("stop").attr("offset",`${i*10}%`).attr("stop-color", d3.interpolateYlOrRd(i/10));
+  });
+  const lg = svg.append("g").attr("transform", `translate(${legendX},${legendY})`);
+  lg.append("rect").attr("y", 0).attr("width", legendW).attr("height", 18)
+    .attr("fill", `url(#${gradId})`).attr("rx", 3);
+  lg.append("text").attr("x", 0).attr("y", 36) .attr("font-size","22px").attr("font-family","monospace").attr("fill","#444")
+    .text(formatVal(metric, minVal));
+  lg.append("text").attr("x", legendW).attr("y", 36).attr("text-anchor","end")
+    .attr("font-size","22px").attr("font-family","monospace").attr("fill","#444")
+    .text(formatVal(metric, maxVal));
 }
+const nycBoroughs = ["Staten Island", "Brooklyn", "Queens", "Bronx", "Manhattan"];
+
+init();
