@@ -22,3 +22,20 @@ function formatVal(metric, val) {
   if (metric === "avg_ot_hours") {return floatFormat(val) + " hrs";}
   return moneyFormat(v);
 }
+
+let allData = [];
+async function init() {
+  try {
+    const years   = await fetch("/api/years").then(response => response.json());
+    const yearElement = document.getElementById("spike_year");
+    years.forEach(y => {
+      const option = document.createElement("option");
+      option.value = y; option.textContent = y;
+      yearElement.appendChild(option);
+    });
+    if (years.length) yearElement.value = years[years.length -1];
+  } catch(e) {console.warn("spike_years unavailable:", e);}
+  await render();
+  document.getElementById("spike_metric").addEventListener("change", render);
+  document.getElementById("spike_year").addEventListener("change",   render);
+}

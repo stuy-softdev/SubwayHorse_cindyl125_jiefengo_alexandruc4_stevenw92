@@ -112,3 +112,6 @@ alexandruC -- 2026-04-21 23:52
 
 alexandruC -- 2026-04-22 00:08
   - made format for the map data
+
+alexandruC -- 2026-04-22 00:16
+ - made init setup for map
