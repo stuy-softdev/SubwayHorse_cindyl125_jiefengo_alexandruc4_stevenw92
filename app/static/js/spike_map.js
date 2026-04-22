@@ -39,3 +39,18 @@ async function init() {
   document.getElementById("spike_metric").addEventListener("change", render);
   document.getElementById("spike_year").addEventListener("change",   render);
 }
+
+async function render() {
+  const year = document.getElementById("spike_year").value;
+  const url  = "/api/map" + (year ? `?year=${encodeURIComponent(year)}` : "");
+  const cont = document.getElementById("spike_map_container");
+  cont.innerHTML = '<p class="text-center font-mono text-stone-400 py-8">Loading…</p>';
+  try {
+    allData = await fetch(url).then(response => response.json());
+  } catch(e) {
+    cont.innerHTML = '<p class="text-red-500 font-mono text-center py-4">Failed to load data.</p>';
+    return;
+  }
+  render(document.getElementById("spike_metric").value);
+}
+

@@ -115,3 +115,6 @@ alexandruC -- 2026-04-22 00:08
 
 alexandruC -- 2026-04-22 00:16
  - made init setup for map
+
+ alexandruC -- 2026-04-22 00:27
+ - made noargs render function for base state
