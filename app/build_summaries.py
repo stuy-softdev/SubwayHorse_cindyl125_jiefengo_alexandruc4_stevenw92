@@ -114,3 +114,10 @@ def build():
         GROUP BY fiscal_year, agency_name;
         CREATE INDEX agency_year ON summary_agency_year(fiscal_year, avg_base_salary);
     """)
+    c.execute("SELECT COUNT(*) FROM summary_borough_year")
+    c.execute("SELECT COUNT(*) FROM summary_agency_year")
+    c.execute("SELECT COUNT(*) FROM summary_title_year")
+    db.close()
+
+if __name__ == "__main__":
+    build()
