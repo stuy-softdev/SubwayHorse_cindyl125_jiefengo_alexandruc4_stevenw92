@@ -54,3 +54,41 @@ async function render() {
   render(document.getElementById("spike_metric").value);
 }
 
+function render(metric) {
+  const cont = document.getElementById("spike_map_container");
+  cont.innerHTML = "";
+  cont.style.position = "relative";
+
+  if (!allData.length) {
+    cont.innerHTML = '<p class="text-stone-400 font-mono text-center py-8">No data for this selection.</p>';
+    return;
+  }
+  const byBorough = new Map();
+  for (const data1 of allData) {
+    const prev = byBorough.get(data1.borough);
+    const currentYear = data1.fiscal_year ?? 0;
+    const prevYear = prev?.fiscal_year ?? 0;
+    if (!prev || currentYear > prevYear) {
+        byBorough.set(d.borough, data1);
+    }}
+  const data     = Array.from(byBorough.values());
+  const getValue = data2 => data2[metric] ?? 0;
+  const maxVal   = d3.max(data, getValue) || 1;
+  const minVal   = d3.min(data, getValue) || 0;
+
+  const colorSpike = d3.scaleSequential(d3.interpolateYlOrRd).domain([minVal * 0.8, maxVal * 1.05]); // color!
+  const heightScale = d3.scaleLinear().domain([0, maxVal]).range([0, maxSpikeSize]);
+
+  const img = document.createElement("img");
+  img.src = imgSrc;
+  img.alt = "NYC borough map";
+  img.style.cssText = "display:block; width:100%; height:auto; border-radius:8px;";
+  img.onerror =() => {
+    img.style.display = "none";
+    const error = document.createElement("p");
+    error.className= "text-red-400 font-mono text-sm text-center py-2";
+    error.textContent = "Map image not found";
+    cont.insertBefore(error, svg_wrap);
+  };
+  cont.appendChild(img);
+}

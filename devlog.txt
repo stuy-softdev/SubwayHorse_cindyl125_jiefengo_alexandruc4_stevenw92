@@ -118,3 +118,6 @@ alexandruC -- 2026-04-22 00:16
 
  alexandruC -- 2026-04-22 00:27
  - made noargs render function for base state
+
+ alexandruC -- 2026-04-22 00:56
+ - started args render function.
