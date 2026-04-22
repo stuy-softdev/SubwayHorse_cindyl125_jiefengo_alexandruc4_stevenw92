@@ -30,7 +30,10 @@ pip install -r requirements.txt
 
 ### FEATURE SPOTLIGHT
 * ads!! remove them by logging in, or bask in capitalism
-* users are recommended to search by name
+* view 5 different metrics of NYC salaries and compare by borough
+* generate a custom chart to view any of the data given by NYC OpenData
+* search for any government worker (including stuy teachers) in specific search
 
 ### KNOWN BUGS/ISSUES
-* whaaaat why
+* the spike map & custom chart may fail to load data (its just too much data D:)
+* custom chart has no hover display, making it hard to read
