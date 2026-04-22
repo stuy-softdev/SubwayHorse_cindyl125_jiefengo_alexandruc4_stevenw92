@@ -1,5 +1,9 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
+const boroughPins = {
+
+}
+
 const imgSrc   = "/static/img/New_York_City_Council_Districts.svg";
 const maxSpikeSize = 110;
 const spikeWidth   = 20;
@@ -91,4 +95,33 @@ function render(metric) {
     cont.insertBefore(error, svg_wrap);
   };
   cont.appendChild(img);
+
+  const svg_wrapper = document.createElement("div");
+  svg_wrapper.style.cssText = "position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;";
+  cont.appendChild(svg_wrapper);
+
+  const svg = d3.select(svg_wrapper).append("svg")
+    .attr("width",  "100%")
+    .attr("height", "100%")
+    .attr("viewBox", "0 0 1000 1000")
+    .attr("preserveAspectRatio", "none")
+    .style("position", "absolute")
+    .style("top", 0).style("left", 0);
+
+  svg.style("pointer-events", "none");
+  const tooltip = d3.select(cont).append("div")
+    .style("position",       "absolute")
+    .style("background",     "rgba(10,10,15,0.88)")
+    .style("color",          "#f0f0f0")
+    .style("padding",        "8px 14px")
+    .style("border-radius",  "6px")
+    .style("font-family",    "monospace")
+    .style("font-size",      "12px")
+    .style("line-height",    "1.65")
+    .style("pointer-events", "none")
+    .style("opacity",        0)
+    .style("white-space",    "nowrap")
+    .style("z-index",        20)
+    .style("box-shadow",     "0 2px 8px rgba(0,0,0,0.4)");
+
 }

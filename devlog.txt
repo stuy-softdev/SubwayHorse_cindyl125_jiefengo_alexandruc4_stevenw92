@@ -121,3 +121,6 @@ alexandruC -- 2026-04-22 00:16
 
  alexandruC -- 2026-04-22 00:56
  - started args render function.
+
+ alexandruC -- 2026-04-22 01:12
+- added styling for pointer-events (aka like hover,clicks etc)
