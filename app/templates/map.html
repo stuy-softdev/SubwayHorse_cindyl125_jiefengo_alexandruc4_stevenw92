@@ -62,44 +62,49 @@ P04: Makers Makin' It, Act II - The Seequel
     </div>
     <div class="my-4 mx-2 bg-white rounded-xl shadow p-4 text-left">
       <h2 class="text-xl font-bold font-mono text-stone-700 mb-3">Make Your Own Custom Chart</h2>
-    <select id="x_axis">
-      <option value="fiscal_year">fiscal_year</option>
-      <option value="payroll_number">payroll_number</option>
-      <option value="agency_name">agency_name</option>
-      <option value="last_name">last_name</option>
-      <option value="first_name">first_name</option>
-      <option value="mid_init">mid_init</option>
-      <option value="agency_start_date">agency_start_date</option>
-      <option value="work_location_borough">work_location_borough</option>
-      <option value="title_description">title_description</option>
-      <option value="leave_status_as_of_june_30">leave_status_as_of_june_30</option>
-      <option value="base_salary">base_salary</option>
-      <option value="pay_basis">pay_basis</option>
-      <option value="regular_hours">regular_hours</option>
-      <option value="regular_gross_paid">regular_gross_paid</option>
-      <option value="ot_hours">ot_hours</option>
-      <option value="total_ot_paid">total_ot_paid</option>
-      <option value="total_other_pay">total_other_pay</option>
-    </select>
-    <select id="y_axis">
-      <option value="fiscal_year">fiscal_year</option>
-      <option value="payroll_number">payroll_number</option>
-      <option value="agency_name">agency_name</option>
-      <option value="last_name">last_name</option>
-      <option value="first_name">first_name</option>
-      <option value="mid_init">mid_init</option>
-      <option value="agency_start_date">agency_start_date</option>
-      <option value="work_location_borough">work_location_borough</option>
-      <option value="title_description">title_description</option>
-      <option value="leave_status_as_of_june_30">leave_status_as_of_june_30</option>
-      <option value="base_salary">base_salary</option>
-      <option value="pay_basis">pay_basis</option>
-      <option value="regular_hours">regular_hours</option>
-      <option value="regular_gross_paid">regular_gross_paid</option>
-      <option value="ot_hours">ot_hours</option>
-      <option value="total_ot_paid">total_ot_paid</option>
-      <option value="total_other_pay">total_other_pay</option>
-    </select>
+        <label class="font-mono text-sm text-stone-600">
+          Measure&nbsp;
+          <select id="y_axis" class="border border-stone-300 rounded px-2 py-1 font-mono text-sm bg-stone-50 focus:outline-none focus:ring-2 focus:ring-stone-400">
+            <option value="fiscal_year">fiscal_year</option>
+            <option value="payroll_number">payroll_number</option>
+            <option value="agency_name">agency_name</option>
+            <option value="last_name">last_name</option>
+            <option value="first_name">first_name</option>
+            <option value="mid_init">mid_init</option>
+            <option value="agency_start_date">agency_start_date</option>
+            <option value="work_location_borough">work_location_borough</option>
+            <option value="title_description">title_description</option>
+            <option value="leave_status_as_of_june_30">leave_status_as_of_june_30</option>
+            <option value="base_salary">base_salary</option>
+            <option value="pay_basis">pay_basis</option>
+            <option value="regular_hours">regular_hours</option>
+            <option value="regular_gross_paid">regular_gross_paid</option>
+            <option value="ot_hours">ot_hours</option>
+            <option value="total_ot_paid">total_ot_paid</option>
+            <option value="total_other_pay">total_other_pay</option>
+          </select>
+        <label class="font-mono text-sm text-stone-600">
+          over&nbsp;
+          <select id="x_axis" class="border border-stone-300 rounded px-2 py-1 font-mono text-sm bg-stone-50 focus:outline-none focus:ring-2 focus:ring-stone-400">
+            <option value="fiscal_year">fiscal_year</option>
+            <option value="payroll_number">payroll_number</option>
+            <option value="agency_name">agency_name</option>
+            <option value="last_name">last_name</option>
+            <option value="first_name">first_name</option>
+            <option value="mid_init">mid_init</option>
+            <option value="agency_start_date">agency_start_date</option>
+            <option value="work_location_borough">work_location_borough</option>
+            <option value="title_description">title_description</option>
+            <option value="leave_status_as_of_june_30">leave_status_as_of_june_30</option>
+            <option value="base_salary">base_salary</option>
+            <option value="pay_basis">pay_basis</option>
+            <option value="regular_hours">regular_hours</option>
+            <option value="regular_gross_paid">regular_gross_paid</option>
+            <option value="ot_hours">ot_hours</option>
+            <option value="total_ot_paid">total_ot_paid</option>
+            <option value="total_other_pay">total_other_pay</option>
+          </select>
+        </label>
       <button id="loading_button" class="mt-2 px-4 py-1 bg-stone-700 text-white font-mono text-sm rounded hover:bg-stone-500 transition-colors">Load Chart</button>
       <div id="container" class="mt-4"></div>
     </div><!-- /Custom Chart card -->

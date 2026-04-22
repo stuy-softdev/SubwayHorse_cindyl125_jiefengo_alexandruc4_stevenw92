@@ -26,12 +26,15 @@ async function load_chart(){
 
         payrollData = [];
         for(let i = 0; i < json.length; i++){
-          xData = json[i][0];
-          yData = json[i][1];
+          var xData = json[i][0];
+          var yData = json[i][1];
           if(x_axis == 'base_salary' || x_axis == 'total_other_pay' || x_axis == 'total_ot_paid' || x_axis == 'regular_gross_paid'){
-            xData = xData.substring(1:);
+            xData = +xData.replace(/[^0-9.-]+/g, "");
           }
-          payrollData.push({x_axis: xData, y_axis: yData)
+          if(y_axis == 'base_salary' || y_axis == 'total_other_pay' || y_axis == 'total_ot_paid' || y_axis == 'regular_gross_paid'){
+            yData = +yData.replace(/[^0-9.-]+/g, "");
+          }
+          payrollData.push({x_axis: xData, y_axis: yData})
         }
         console.log(payrollData);
 
