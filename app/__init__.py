@@ -57,7 +57,7 @@ def login():
         db.close()
 
         if user_data:
-            passworddb = user_data[0]
+            passworddb = user_data[1]
             if password == passworddb:
                 session["username"] = username
                 return redirect(url_for('index'))

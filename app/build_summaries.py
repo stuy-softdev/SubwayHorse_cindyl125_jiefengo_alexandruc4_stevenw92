@@ -53,7 +53,8 @@ def build():
     ot_pay       = money.format(col="total_ot_paid")
     other_pay    = money.format(col="total_other_pay")
     total_comp   = f"({gross_pay} + {ot_pay} + {other_pay})"
-
+    
+    # index done since these lookups should be near instantaneous
     run(db, """
         CREATE INDEX IF NOT EXISTS payroll_year      ON payroll_data(fiscal_year);
         CREATE INDEX IF NOT EXISTS payroll_borough ON payroll_data(work_location_borough);
