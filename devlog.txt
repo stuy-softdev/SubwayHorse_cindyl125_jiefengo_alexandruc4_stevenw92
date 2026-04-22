@@ -107,5 +107,8 @@ alexandruC -- 2026-04-21 23:05
 alexandruC -- 2026-04-21 23:23
   - setting up data for averages for payroll data
 
-alexandruC -- 2026-04-21 23:35
+alexandruC -- 2026-04-21 23:52
   - made queries for all the average data 
+
+alexandruC -- 2026-04-22 00:08
+  - made format for the map data
