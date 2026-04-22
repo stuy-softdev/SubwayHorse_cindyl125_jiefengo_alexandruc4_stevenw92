@@ -91,12 +91,18 @@ jiefengO -- 2026-04-20 23:40
  jiefengO -- 2026-04-21 11:00
   - working on formatting data
 
-alexandruC -- 2026-04-21 20:32
+alexandruC -- 2026-04-21 22:32
   - api route for yearly data
 
-alexandruC -- 2026-04-21 20:52
+alexandruC -- 2026-04-21 22:52
   - api route for map data
 
-alexandruC -- 2026-04-21 21:01
+alexandruC -- 2026-04-21 23:01
   - made build_summaries file to analyze raw csv
   - cleaned borough names and money
+
+alexandruC -- 2026-04-21 23:05
+  - adding cleaned borough to string
+
+alexandruC -- 2026-04-21 23:23
+  - setting up data for averages for payroll data

@@ -40,3 +40,22 @@ def borough_data(col="work_location_borough"):
 def run(db, sql):
     db.executescript(sql)
     db.commit()
+
+def build():
+    if not os.path.exists(db_path):
+        print(f"Could not find {db_path}.")
+        sys.exit(1)
+    db = sqlite3.connect(db_path)
+    c = db.cursor()
+    borough = borough_data()
+    base_salary  = money.format(col="base_salary")
+    gross_pay    = money.format(col="regular_gross_paid")
+    ot_pay       = money.format(col="total_ot_paid")
+    other_pay    = money.format(col="total_other_pay")
+    total_comp   = f"({gross_pay} + {ot_pay} + {other_pay})"
+    run(db, """
+        CREATE INDEX IF NOT EXISTS payroll_year      ON payroll_data(fiscal_year);
+        CREATE INDEX IF NOT EXISTS payroll_borough ON payroll_data(work_location_borough);
+        CREATE INDEX IF NOT EXISTS payroll_agency  ON payroll_data(agency_name);
+        CREATE INDEX IF NOT EXISTS payroll_title   ON payroll_data(title_description);
+    """)
